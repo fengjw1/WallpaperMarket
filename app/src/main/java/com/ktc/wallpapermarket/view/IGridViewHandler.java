@@ -136,47 +136,73 @@ public class IGridViewHandler implements IGridViewScal {
                 mAnimationSet.setFillAfter(false);
                 mAnimationSet.cancel();
             }
-            ScaleAnimation scaleAnimation;
+            ScaleAnimation scaleAnimation = null;
             position = position - mGridView.getFirstVisiblePosition();
             Constants.debug("position : " + position);
-//            scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-//                    Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-            if (position == 0){
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-            }else if (position == lineNumber -1){
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_PARENT, 0f);
-            }else if (position > 0 && position < lineNumber -1){
-                Constants.debug("1");
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0f);
-//            }else if (position == lineNumber * 2){
-//                Constants.debug("2");
-//                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-//                        Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-            }else if (position % lineNumber == 0 && position > 0 && position < lineNumber * 2){
-                Constants.debug("3");
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_PARENT, 0.5f);
-            }else if (position == lineNumber * 3 - 1){
-                Constants.debug("4");
-//                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-//                        Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_PARENT, 1f);
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_PARENT, 0.5f);
-            }else if (position % lineNumber == lineNumber -1 && position > lineNumber -1 && position < lineNumber * 3 - 1){
-                Constants.debug("5");
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_PARENT, 0.5f);
-//            }else if (position >= lineNumber * 2 && position < lineNumber * 3 - 1){
-//                Constants.debug("6");
-//                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-//                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 1f);
-            }else {
-                Constants.debug("7");
-                scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
-                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
+
+            switch (position){
+                case 0:
+                    Constants.debug("0");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+                    break;
+                case 1:
+                    Constants.debug("1");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0f);
+                    break;
+                case 2:
+                    Constants.debug("2");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0f);
+                    break;
+                case 3:
+                    Constants.debug("3");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0.0f);
+                    break;
+                case 4:
+                    Constants.debug("4");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+                    break;
+                case 5:
+                    Constants.debug("5");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0f);
+                    break;
+                case 6:
+                    Constants.debug("6");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0f);
+                    break;
+                case 7:
+                    Constants.debug("7");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_PARENT, 0.0f);
+                    break;
+                case 8:
+                    Constants.debug("8");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
+                    break;
+                case 9:
+                    Constants.debug("9");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1.0f);
+                    break;
+                case 10:
+                    Constants.debug("10");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1.0f);
+                    break;
+                case 11:
+                    Constants.debug("11");
+                    scaleAnimation = new ScaleAnimation(scaleBefore, scaleAfter, scaleBefore, scaleAfter,
+                            Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f);
+                    break;
+                default:
+                    break;
             }
 
             scaleAnimation.setDuration(300);

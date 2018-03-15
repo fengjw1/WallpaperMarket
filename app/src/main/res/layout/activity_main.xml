@@ -80,7 +80,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="12dp"
             android:background="#00000000"
-            android:scrollbars="vertical"
+            android:scrollbars="none"
             android:horizontalSpacing="5dp"
             android:verticalSpacing="5dp"
             android:listSelector="@drawable/trans_selector"
@@ -96,7 +96,7 @@
         android:id="@+id/root_main_bottom_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mygridview"
+        android:layout_below="@+id/root_main_gv"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:gravity="center_vertical">

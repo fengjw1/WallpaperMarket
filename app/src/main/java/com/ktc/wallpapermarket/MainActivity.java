@@ -1,6 +1,5 @@
 package com.ktc.wallpapermarket;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,10 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements View.OnClickListener, View.OnFocusChangeListener {
+public class MainActivity extends Activity implements View.OnClickListener, View.OnFocusChangeListener, View.OnKeyListener {
 
     private final String TAG = this.getClass().getSimpleName().toString();
     private static final boolean DEBUG = true;
@@ -56,22 +53,21 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private int currentSelectPosition = -1;
 
     //SharedPreferences
-    public static final String EXECUTE_FIRST = "execute_first";
+    public static final String WALLPAPERSETTING = "wallpaper_setting";
     public static int MODE = Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE;
 
     private List<File> mList = new ArrayList<>();
 
     private static final int FIRSTSELECTGRIDVIEW = 0x001;
+    private static final int FRESHANIMATION = 0x002;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case FIRSTSELECTGRIDVIEW:
                     Constants.debug("FIRSTSELECTGRIDVIEW");
-//                    gridview.setAdapter(mGridAdapter);
-//                    gridViewHandler = new IGridViewHandler(MainActivity.this, gridview, mList);
-                    gridview.setSelection(0);
                     mGridAdapter.notifyDataSetChanged();
+                    gridview.setSelection(0);
                     break;
                 default:
                     break;
@@ -97,18 +93,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         mGridAdapter = new GridAdapter(this, mList);
         gridview.setAdapter(mGridAdapter);
         gridViewHandler = new IGridViewHandler(this, gridview, mList);
-
-//        try {
-//            Constants.debug("try");
-//            Method fireOnSelected = AdapterView.class.getDeclaredMethod("fireOnSelected ");
-//            fireOnSelected.setAccessible(true);
-//            fireOnSelected.invoke(gridview); //运行该方法
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Constants.debug("try");
+            Method fireOnSelected = AdapterView.class.getDeclaredMethod("fireOnSelected ");
+            fireOnSelected.setAccessible(true);
+            fireOnSelected.invoke(gridview); //运行该方法
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         gridview.setFocusable(true);
         gridview.setSelection(0);
         loadSharedPreferences();
+        gridview.setOnKeyListener(new GridViewOnKeyListener());
+        gridview.setOnFocusChangeListener(new GridViewOnFocusChangeListener());
     }
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -183,7 +180,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         Constants.debug("initClick()");
         mMainTopHomeRlRoot.setOnClickListener(this);
         mMainTopHomeRlRoot.setOnFocusChangeListener(this);
+        mMainTopHomeRlRoot.setOnKeyListener(this);
         mMainTopMarketRlRoot.setOnClickListener(this);
+        mMainTopMarketRlRoot.setOnKeyListener(this);
         mMainTopMarketRlRoot.setOnFocusChangeListener(this);
     }
 
@@ -244,6 +243,75 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     }
 
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        switch (v.getId()){
+            case R.id.root_main_top_market_rl:
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_LEFT){
+                    mMainTopHomeRlRoot.setFocusable(true);
+                    mMainTopMarketRlRoot.setFocusable(false);
+                }
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+                    mMainTopHomeRlRoot.setFocusable(false);
+                    mMainTopMarketRlRoot.setFocusable(false);
+                    gridview.requestFocus();
+                    gridview.setFocusable(true);
+                    gridview.setSelection(0);
+                }
+                break;
+            case R.id.root_main_top_home_rl:
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_RIGHT){
+                    mMainTopHomeRlRoot.setFocusable(false);
+                    mMainTopMarketRlRoot.setFocusable(true);
+                }
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+                    mMainTopHomeRlRoot.setFocusable(false);
+                    mMainTopMarketRlRoot.setFocusable(false);
+                    gridview.requestFocus();
+                    gridview.setFocusable(true);
+                    gridview.setSelection(0);
+
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
+
+    private class GridViewOnFocusChangeListener implements View.OnFocusChangeListener{
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            Constants.debug("onFocusChange");
+            Constants.debug("hasFocus : " + hasFocus);
+            if (hasFocus){
+                mHandler.sendEmptyMessageDelayed(FIRSTSELECTGRIDVIEW, 300);
+                Constants.position = -2;
+            }else {
+                gridview.setAdapter(mGridAdapter);
+                Constants.position = -1;
+            }
+        }
+    }
+
+    private class GridViewOnKeyListener implements View.OnKeyListener{
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            Constants.debug("GridViewOnKeyListener onKey()");
+            if (event.getAction() == KeyEvent.ACTION_DOWN){
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP ){
+                    if (currentSelectPosition >= 0 && currentSelectPosition <= 3){
+                        Constants.debug(".........");
+                        gridview.setFocusable(false);
+                        mMainTopMarketRlRoot.setFocusable(true);
+                    }
+                }
+            }
+            return false;
+        }
+    }
 
     /**
      * this method 
@@ -253,11 +321,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences share = getSharedPreferences(EXECUTE_FIRST, MODE);
+                SharedPreferences share = getSharedPreferences(WALLPAPERSETTING, MODE);
                 String count = share.getString("count", "default");
                 Constants.debug("count : " + count);
                 if (!count.equals("-2")){
-                    mHandler.sendEmptyMessageDelayed(FIRSTSELECTGRIDVIEW, 2000);
+                    mHandler.sendEmptyMessageDelayed(FIRSTSELECTGRIDVIEW, 300);
                     saveSharedPreferences();
                     Constants.position = -2;
                 }
@@ -267,7 +335,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     private void saveSharedPreferences(){
         Constants.debug("saveSharedPreferences()");
-        SharedPreferences share = getSharedPreferences(EXECUTE_FIRST, MODE);
+        SharedPreferences share = getSharedPreferences(WALLPAPERSETTING, MODE);
         SharedPreferences.Editor editor = share.edit();
         editor.putString("count", "-2");
         editor.commit();

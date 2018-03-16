@@ -81,6 +81,10 @@ public class IGridViewHandler implements IGridViewScal {
 
     }
 
+    public void setSelection(int position) {
+        mGridView.setSelection(position);
+    }
+
     public interface FocusListener{
         void onFocusChanged(View oldFocus, View newFocus);
     }
@@ -113,7 +117,7 @@ public class IGridViewHandler implements IGridViewScal {
     }
 
     private AnimationSet mAnimationSet;
-    protected List<Animator> getScaleAnimator(View view, boolean isScale, int position){
+    public List<Animator> getScaleAnimator(View view, boolean isScale, int position){
         List<Animator> animatorList = new ArrayList<>(2);
         if (!mScalable){
             return animatorList;

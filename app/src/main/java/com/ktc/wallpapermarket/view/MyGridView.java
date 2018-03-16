@@ -22,6 +22,7 @@ public class MyGridView extends GridView {
     @Override
     public void setSelection(int position) {
         Constants.debug("MyGridView setSelection position : " + position);
+        Constants.position = position;
         super.setSelection(position);
     }
 
@@ -43,6 +44,8 @@ public class MyGridView extends GridView {
         isOnMeasure = false;
         super.onLayout(changed, l, t, r, b);
     }
+
+
 
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {

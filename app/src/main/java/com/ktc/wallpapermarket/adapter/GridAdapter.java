@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ktc.wallpapermarket.MainActivity;
 import com.ktc.wallpapermarket.R;
 import com.ktc.wallpapermarket.utils.Constants;
 import com.ktc.wallpapermarket.view.MyGridView;
@@ -27,6 +29,9 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
+import static com.ktc.wallpapermarket.utils.Constants.DEBUG;
 
 /**
  * Created by fengjw on 2018/3/13.

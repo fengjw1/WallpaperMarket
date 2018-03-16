@@ -3,4 +3,11 @@
     <string name="hello_world">Hello World!</string>
     <string name="test">test</string>
     <string name="wallpaper_info">Wallpaper Information</string>
+    <string name="wallpaper_info_btn">apply</string>
+    <string name="dialog_title">Change The Wallpaper</string>
+    <string name="dialog_cancel">cancel</string>
+    <string name="dialog_sure">sure</string>
+    <string name="setting_loading_tv">The wallpaper is being applied</string>
+    <string name="setting_loading_succeed">set Wallpaper succeed</string>
+    <string name="setting_loading_failed">set Wallpaper failed</string>
 </resources>

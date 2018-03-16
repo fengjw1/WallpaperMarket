@@ -4,4 +4,11 @@
     <string name="hello_world">Hello World!</string>
     <string name="test">test</string>
     <string name="wallpaper_info">壁纸信息</string>
+    <string name="wallpaper_info_btn">套用</string>
+    <string name="dialog_title">更换壁纸</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_sure">套用变更</string>
+    <string name="setting_loading_tv">正在变更您的设置...</string>
+    <string name="setting_loading_succeed">已设为壁纸</string>
+    <string name="setting_loading_failed">设置壁纸失败</string>
 </resources>

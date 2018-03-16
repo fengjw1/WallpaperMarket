@@ -17,6 +17,9 @@ public class Constants {
 
     public static List<File> sList = new ArrayList<>();
 
+    public static final String SETTINGWALLPAPERACTION = "com.ktc.wallpapermarket.setting";
+
+
     public static boolean DEBUG = true;
     public static void debug(String str){
         if (DEBUG){

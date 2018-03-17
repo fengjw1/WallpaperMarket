@@ -158,8 +158,10 @@ public class GridAdapter extends BaseAdapter {
             if (integers[0] >= mList.size()){
                 this.cancel(true);
             }else {
+                Constants.debug("integers[0] : " + integers[0]);
                 this.url = mList.get(integers[0]).getPath();
                 drawable = getBitmapFromUrl(this.url);
+                Constants.mDList.add(integers[0], drawable);
                 if (drawable != null){
                     mCache.put(this.url, drawable);
                 }

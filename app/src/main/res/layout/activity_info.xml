@@ -76,6 +76,7 @@
     <RelativeLayout
         android:id="@+id/info_content_rl"
         android:layout_below="@+id/info_top_bar_rl"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -84,6 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/test"
+            android:layout_marginLeft="20dp"
             android:focusable="false"
             android:clickable="false"
             android:textSize="32sp"
@@ -92,11 +94,13 @@
         <ImageView
             android:id="@+id/info_content_iv"
             android:layout_below="@+id/info_content_name_tv"
-            android:layout_width="600dp"
-            android:layout_height="300dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitXY"
             android:focusable="false"
-            android:clickable="false"
-            android:src="@drawable/ic_launcher"/>
+            android:clickable="false"/>
 
         <LinearLayout
             android:id="@+id/info_content_ll"
@@ -124,8 +128,8 @@
             android:id="@+id/info_content_btn"
             android:layout_below="@+id/info_content_iv"
             android:background="@drawable/cancel_button_normal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="80dp"
             android:focusable="true"
             android:clickable="true"
             android:text="@string/wallpaper_info_btn"

@@ -1,27 +1,27 @@
 package com.ktc.wallpapermarket.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ktc.wallpapermarket.R;
+import com.ktc.wallpapermarket.utils.BitmapToDrawableUtils;
 import com.ktc.wallpapermarket.utils.Constants;
 import com.ktc.wallpapermarket.utils.ImageCheck;
 import com.ktc.wallpapermarket.view.ChangeWallpaperDialog;
@@ -80,13 +80,15 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         Constants.debug("onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-        initView();
-        initClick();
         Intent intent = getIntent();
         currentPosition = intent.getIntExtra("position", -1);
         mFile = Constants.sList.get(currentPosition);
-        path = mFile.getPath();
         Constants.debug("currentPosition : " + currentPosition);
+
+        path = mFile.getPath();
+        initView();
+        initClick();
+
 
         mCheck = new ImageCheck();
         mManager = WallpaperManager.getInstance(InfoActivity.this);
@@ -127,7 +129,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     }
 
     private void setWallPaper(){
-        Log.d("fengjw", "setWallPaper()");
+        Constants.debug("setWallPaper()");
         try {
             BitmapDrawable bitmapDrawable = new BitmapDrawable(path);
             Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -141,6 +143,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Constants.debug("onDestroy()");
         unregisterReceiver(mBroadcastReceiver);
     }
 
@@ -163,6 +166,21 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
 
     private void initClick(){
         Constants.debug("initClick");
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }).start();
+        Drawable drawable = Constants.mDList.get(currentPosition);
+        int width = 1600;
+        int height = 800;
+        BitmapToDrawableUtils drawableUtils = new BitmapToDrawableUtils(drawable, width, height);
+        infoContentIv.setImageDrawable(drawableUtils.getInstance());
+
+        infoContentNameTv.setText(mFile.getName());
+
         infoTopHomeRl.setOnKeyListener(this);
         infoTopHomeRl.setOnFocusChangeListener(this);
         infoTopHomeRl.setOnClickListener(this);
@@ -255,8 +273,10 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
             case R.id.info_content_btn:
                 if (hasFocus){
                     infoContentBtn.setBackgroundResource(R.drawable.button_highlight);
+                    infoContentBtn.setTextColor(getResources().getColor(R.color.black));
                 }else {
                     infoContentBtn.setBackgroundResource(R.drawable.cancel_button_normal);
+                    infoContentBtn.setTextColor(getResources().getColor(R.color.white));
                 }
                 break;
         }

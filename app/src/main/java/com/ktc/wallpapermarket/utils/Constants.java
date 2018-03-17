@@ -1,5 +1,6 @@
 package com.ktc.wallpapermarket.utils;
 
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.io.File;
@@ -16,6 +17,7 @@ public class Constants {
     public static String photoPath = "/system/etc/wallpaper";
 
     public static List<File> sList = new ArrayList<>();
+    public static List<Drawable> mDList = new ArrayList<>();
 
     public static final String SETTINGWALLPAPERACTION = "com.ktc.wallpapermarket.setting";
 
@@ -26,5 +28,8 @@ public class Constants {
             Log.d("fengjw", str);
         }
     }
+
+
+
 
 }

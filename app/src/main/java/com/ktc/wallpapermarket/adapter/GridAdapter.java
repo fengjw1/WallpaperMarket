@@ -87,6 +87,7 @@ public class GridAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.gridview_item, null);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             holder.title = (TextView) convertView.findViewById(R.id.title);
+            holder.checkIv = (ImageView) convertView.findViewById(R.id.check_iv);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -113,6 +114,11 @@ public class GridAdapter extends BaseAdapter {
         animOnlyOnce(convertView, position);
 
         return convertView;
+    }
+
+    public void update(){
+
+        notifyDataSetChanged();
     }
 
     /**
@@ -250,6 +256,7 @@ public class GridAdapter extends BaseAdapter {
     public final class ViewHolder{
         private ImageView img;
         private TextView title;
+        private ImageView checkIv;
     }
 
 }

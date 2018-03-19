@@ -94,7 +94,6 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         initView();
         initClick();
 
-
         mCheck = new ImageCheck();
         mManager = WallpaperManager.getInstance(InfoActivity.this);
 

@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,15 +39,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private RelativeLayout mMainTopMarketRlRoot;
     private RelativeLayout mMainTopBarRlRoot;
     private TextView mMainBottomTimeTvRoot;
-    private RelativeLayout mMainBottomRlRoot;
     private RelativeLayout mMainRlRoot;
+
+    //arrow
+    private RelativeLayout mMainArrowUpRlRoot;
+    private RelativeLayout mMainArrowDownRlRoot;
+    private ImageView mMainArrowUpIvRoot;
+    private ImageView mMainArrowDownIvRoot;
 
     private GridAdapter mGridAdapter;
     private MyGridView gridview;
 
-
     private int currentSelectPosition = -1;
-
 
     private SettingPreference mSettingPreference;
 
@@ -79,8 +83,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         initGridView();
         initClick();
         //new Thread(mRunnable).start();
-
-
     }
 
     private Runnable mRunnable = new Runnable() {
@@ -102,7 +104,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private void initGridView() {
         mGridAdapter = new GridAdapter(this, mList, gridview);
         gridview.setAdapter(mGridAdapter);
-
         gridview.setOnKeyListener(new GridViewOnKeyListener());
         gridview.setOnItemClickListener(new GridViewOnItemClickListener());
         gridview.setOnItemSelectedListener(new GridViewOnItemSelectedListener());
@@ -153,7 +154,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         mSettingPreference = new SettingPreference(this);
 
-
     }
 
     private void initClick() {
@@ -176,9 +176,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         mMainTopMarketRlRoot = (RelativeLayout) findViewById(R.id.root_main_top_market_rl);
         mMainTopBarRlRoot = (RelativeLayout) findViewById(R.id.root_main_top_bar_rl);
         mMainBottomTimeTvRoot = (TextView) findViewById(R.id.root_main_bottom_time_tv);
-        mMainBottomRlRoot = (RelativeLayout) findViewById(R.id.root_main_bottom_rl);
         mMainRlRoot = (RelativeLayout) findViewById(R.id.root_main_rl);
         gridview = (MyGridView) findViewById(R.id.root_main_gv);
+
+        //arrow
+        mMainArrowUpRlRoot = (RelativeLayout) findViewById(R.id.root_main_arrow_up_rl);
+        mMainArrowUpIvRoot = (ImageView) findViewById(R.id.root_main_arrow_up_iv);
+        mMainArrowDownRlRoot = (RelativeLayout) findViewById(R.id.root_main_arrow_down_rl);
+        mMainArrowDownIvRoot = (ImageView) findViewById(R.id.root_main_arrow_down_iv);
+
     }
 
     @Override
@@ -234,8 +240,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(false);
+                    Constants.position = 0;
+                    currentSelectPosition = 0;
                     mGridAdapter.setSelection(0);
-
+                    mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
+                    mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.root_main_top_home_rl:
@@ -246,8 +255,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(false);
+                    Constants.position = 0;
+                    currentSelectPosition = 0;
                     mGridAdapter.setSelection(0);
-                    gridview.requestFocus();
+                    mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
+                    mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
                 }
                 break;
             default:
@@ -273,13 +285,37 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             Constants.debug("GridViewOnKeyListener onKey()");
             if (event.getAction() == KeyEvent.ACTION_DOWN){
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP ){
-                    if (currentSelectPosition >= 0 && currentSelectPosition <= 3){
+                    if (currentSelectPosition >= 0 && currentSelectPosition <= 0){
                         Constants.debug(".........");
+                        Constants.position = -1;
+                        currentSelectPosition = -1;
                         mGridAdapter.setSelection(-1);
-                        mGridAdapter.notifyDataSetChanged();
                         mMainTopMarketRlRoot.setFocusable(true);
+                        mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.INVISIBLE);
+                    }else if (currentSelectPosition > 11){
+                        mMainArrowUpRlRoot.setVisibility(View.VISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.INVISIBLE);
+                    }else if (currentSelectPosition >= 8 && currentSelectPosition <=11){
+                        mMainArrowUpRlRoot.setVisibility(View.VISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
+                    }else if (currentSelectPosition >= 4 && currentSelectPosition <=7){
+                        mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+                    if (currentSelectPosition >= 8 && currentSelectPosition <= 11){
+                        mMainArrowUpRlRoot.setVisibility(View.VISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.INVISIBLE);
+                    }else if (currentSelectPosition >= 4 && currentSelectPosition <= 7){
+                        mMainArrowUpRlRoot.setVisibility(View.VISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
                     }
                 }
+
             }
             return false;
         }
@@ -292,7 +328,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             Constants.position = position;
             currentSelectPosition = position;
             mGridAdapter.setSelection(position);
-
         }
 
         @Override

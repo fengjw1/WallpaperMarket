@@ -157,7 +157,8 @@ public class GridAdapter extends BaseAdapter {
 
     public void setSelection(int position){
         selectItem = position;
-        notifyDataSetChanged();
+        Constants.debug("selectItem : " + selectItem);
+        super.notifyDataSetChanged();
     }
 
     public void update(){

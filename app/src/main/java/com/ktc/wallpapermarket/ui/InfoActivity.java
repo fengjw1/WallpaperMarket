@@ -39,7 +39,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     private RelativeLayout infoTopRl;
     private RelativeLayout infoTopHomeRl;
     private RelativeLayout infoTopMarketRl;
-    private ImageView infoTopHomeIv;
+    private ImageView infoTopHomeIv1, infoTopHomeIv2;
     private ImageView infoTopMarketIv1, infoTopMarketIv2;
     private TextView infoTopMarketTv;
 
@@ -159,7 +159,8 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         infoTopRl = (RelativeLayout) findViewById(R.id.info_top_bar_rl);
         infoTopHomeRl = (RelativeLayout) findViewById(R.id.info_top_home_rl);
         infoTopMarketRl = (RelativeLayout) findViewById(R.id.info_top_market_rl);
-        infoTopHomeIv = (ImageView) findViewById(R.id.info_top_home_iv);
+        infoTopHomeIv1 = (ImageView) findViewById(R.id.info_top_home_iv1);
+        infoTopHomeIv2 = (ImageView) findViewById(R.id.info_top_home_iv2);
         infoTopMarketIv1 = (ImageView) findViewById(R.id.info_top_market_iv1);
         infoTopMarketIv2 = (ImageView) findViewById(R.id.info_top_market_iv2);
         infoTopMarketTv = (TextView) findViewById(R.id.info_top_market_tv);
@@ -264,9 +265,11 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         switch (v.getId()){
             case R.id.info_top_home_rl:
                 if (hasFocus){
-                    infoTopHomeIv.setBackgroundResource(R.drawable.wallpaper_market_focus);
+                    infoTopHomeIv1.setBackgroundResource(R.drawable.top_circle_highlighted);
+                    infoTopHomeIv2.setBackgroundResource(R.drawable.theme_market_hl);
                 }else {
-                    infoTopHomeIv.setBackgroundResource(R.drawable.wallpaper_market_icon);
+                    infoTopHomeIv1.setBackgroundResource(R.drawable.top_circle_normal);
+                    infoTopHomeIv2.setBackgroundResource(R.drawable.theme_market_a);
                 }
                 break;
             case R.id.info_top_market_rl:

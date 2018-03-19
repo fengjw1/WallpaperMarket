@@ -26,12 +26,19 @@
             android:clickable="true"
             android:gravity="center">
             <ImageView
-                android:id="@+id/info_top_home_iv"
+                android:id="@+id/info_top_home_iv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 android:layout_centerInParent="true"
-                android:background="@drawable/wallpaper_market_icon"/>
+                android:background="@drawable/top_circle_white"/>
+            <ImageView
+                android:id="@+id/info_top_home_iv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="true"
+                android:background="@drawable/theme_market_a"/>
         </RelativeLayout>
 
         <RelativeLayout

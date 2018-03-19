@@ -25,10 +25,12 @@ public class ChangeWallpaperDialog extends Dialog implements View.OnClickListene
 
     private Context mContext;
 
+    private String name = null;
 
-    public ChangeWallpaperDialog(Context context) {
+    public ChangeWallpaperDialog(Context context, String name) {
         super(context, R.style.WallpaperDialog);
         mContext = context;
+        this.name = name;
     }
 
     public ChangeWallpaperDialog(Context context, int theme){
@@ -51,6 +53,11 @@ public class ChangeWallpaperDialog extends Dialog implements View.OnClickListene
     }
 
     private void initEvent(){
+
+        String tmpName = mContext.getResources().getString(R.string.dialog_content_start) + name
+                + mContext.getResources().getString(R.string.dialog_content_end);
+        contentTv.setText(tmpName);
+
         cancelBtn.setOnClickListener(this);
         cancelBtn.setOnFocusChangeListener(this);
 

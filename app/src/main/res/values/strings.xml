@@ -10,4 +10,7 @@
     <string name="setting_loading_tv">The wallpaper is being applied</string>
     <string name="setting_loading_succeed">set Wallpaper succeed</string>
     <string name="setting_loading_failed">set Wallpaper failed</string>
+    <string name="wallpaper_info_size">wallpaper size ：</string>
+    <string name="dialog_content_start">You are want to change the wallpaper for the</string>
+    <string name="dialog_content_end">？</string>
 </resources>

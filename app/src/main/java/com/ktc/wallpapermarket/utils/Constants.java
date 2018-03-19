@@ -1,6 +1,8 @@
 package com.ktc.wallpapermarket.utils;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.format.Formatter;
 import android.util.Log;
 
 import java.io.File;
@@ -28,6 +30,12 @@ public class Constants {
             Log.d("fengjw", str);
         }
     }
+
+    public static String formatSize(Context context, long target_size){
+        String tmpSize = String.valueOf(target_size);
+        return Formatter.formatFileSize(context, Long.valueOf(tmpSize));
+    }
+
 
 
 

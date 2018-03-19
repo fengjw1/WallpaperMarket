@@ -11,4 +11,7 @@
     <string name="setting_loading_tv">正在变更您的设置...</string>
     <string name="setting_loading_succeed">已设为壁纸</string>
     <string name="setting_loading_failed">设置壁纸失败</string>
+    <string name="wallpaper_info_size">壁纸尺寸：</string>
+    <string name="dialog_content_start">你确定要更换壁纸为</string>
+    <string name="dialog_content_end">吗？</string>
 </resources>

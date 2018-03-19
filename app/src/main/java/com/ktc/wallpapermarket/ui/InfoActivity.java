@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -181,6 +180,10 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
 
         infoContentNameTv.setText(mFile.getName());
 
+        String tmpSize = getResources().getString(R.string.wallpaper_info_size)
+                + Constants.formatSize(this, mFile.length());
+        infoContentSizeTv.setText(tmpSize);
+
         infoTopHomeRl.setOnKeyListener(this);
         infoTopHomeRl.setOnFocusChangeListener(this);
         infoTopHomeRl.setOnClickListener(this);
@@ -206,9 +209,9 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
             case R.id.info_top_market_rl:
                 break;
             case R.id.info_content_btn:
-                String path = mFile.getPath();
-                Constants.debug("path : " + path);
-                ChangeWallpaperDialog changeWallpaperDialog = new ChangeWallpaperDialog(this);
+                String name = mFile.getName();
+                Constants.debug("path : " + name);
+                ChangeWallpaperDialog changeWallpaperDialog = new ChangeWallpaperDialog(this, name);
                 changeWallpaperDialog.show();
                 break;
         }

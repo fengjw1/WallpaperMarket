@@ -1,11 +1,7 @@
 package com.ktc.wallpapermarket;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +9,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,11 +17,10 @@ import com.ktc.wallpapermarket.adapter.GridAdapter;
 import com.ktc.wallpapermarket.ui.InfoActivity;
 import com.ktc.wallpapermarket.utils.Constants;
 import com.ktc.wallpapermarket.utils.ReadPhotoTool;
-import com.ktc.wallpapermarket.view.IGridViewHandler;
+import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.MyGridView;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +44,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private GridAdapter mGridAdapter;
     private MyGridView gridview;
 
-    private IGridViewHandler gridViewHandler;
 
     private int currentSelectPosition = -1;
 
-    //SharedPreferences
-    public static final String WALLPAPERSETTING = "wallpaper_setting";
-    public static int MODE = Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE;
+
+    private SettingPreference mSettingPreference;
 
     private List<File> mList = new ArrayList<>();
 
@@ -108,43 +100,21 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     };
 
     private void initGridView() {
-        mGridAdapter = new GridAdapter(this, mList);
+        mGridAdapter = new GridAdapter(this, mList, gridview);
         gridview.setAdapter(mGridAdapter);
-        gridViewHandler = new IGridViewHandler(this, gridview, mList);
-        try {
-            Constants.debug("try");
-            Method fireOnSelected = AdapterView.class.getDeclaredMethod("fireOnSelected ");
-            fireOnSelected.setAccessible(true);
-            fireOnSelected.invoke(gridview); //运行该方法
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //
-        gridview.setClickable(false);
-        gridview.setFocusable(true);
 
-        loadSharedPreferences(WALLPAPERSETTING, "-2");
         gridview.setOnKeyListener(new GridViewOnKeyListener());
-//        gridview.setOnFocusChangeListener(new GridViewOnFocusChangeListener());
         gridview.setOnItemClickListener(new GridViewOnItemClickListener());
-        gridview.clearFocus();
+        gridview.setOnItemSelectedListener(new GridViewOnItemSelectedListener());
         gridview.requestFocus();
+        gridview.setFocusable(true);
+        gridview.setSelection(0);
     }
-
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            currentSelectPosition = (int) intent.getExtras().get("position");
-            Constants.position = currentSelectPosition;
-            Constants.debug("mainActivity currentSelectPosition : " + currentSelectPosition);
-        }
-    };
 
     @Override
     protected void onResume() {
         super.onResume();
         Constants.debug("onResume");
-
     }
 
     @Override
@@ -157,19 +127,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     protected void onRestart() {
         super.onRestart();
         Constants.debug("onRestart()");
+        mGridAdapter.notifyDataSetChanged();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Constants.debug("onDestroy()");
-        unregisterReceiver(mBroadcastReceiver);
     }
 
     private void init() {
         Constants.debug("init()");
-        IntentFilter mfilter = new IntentFilter(IGridViewHandler.SELECTACTION);
-        registerReceiver(mBroadcastReceiver, mfilter);
         ReadPhotoTool readPhotoTool = new ReadPhotoTool(Constants.photoPath);
         mList = readPhotoTool.readPhotoList();
         Constants.sList = mList;
@@ -181,6 +150,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 }
             }
         }).start();
+
+        mSettingPreference = new SettingPreference(this);
+
+
     }
 
     private void initClick() {
@@ -261,9 +234,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(false);
-                    gridview.requestFocus();
-                    gridview.setFocusable(true);
-                    gridview.setSelection(0);
+                    mGridAdapter.setSelection(0);
+
                 }
                 break;
             case R.id.root_main_top_home_rl:
@@ -274,9 +246,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(false);
+                    mGridAdapter.setSelection(0);
                     gridview.requestFocus();
-                    gridview.setFocusable(true);
-                    gridview.setSelection(0);
                 }
                 break;
             default:
@@ -288,28 +259,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private class GridViewOnItemClickListener implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Constants.debug("onItemClick()");
+            Constants.debug("onItemClick() position : " + position);
             Intent intent = new Intent(MainActivity.this, InfoActivity.class);
             intent.putExtra("position", position);
             startActivity(intent);
         }
     }
-
-//    private class GridViewOnFocusChangeListener implements View.OnFocusChangeListener{
-//        @Override
-//        public void onFocusChange(View v, boolean hasFocus) {
-//            Constants.debug("onFocusChange");
-//            Constants.debug("hasFocus : " + hasFocus);
-//            /*if (hasFocus){
-//                //mHandler.sendEmptyMessageDelayed(FIRSTSELECTGRIDVIEW, 300);
-//                //Constants.position = -2;
-//                mGridAdapter.notifyDataSetChanged();
-//            }else {
-//                gridview.setAdapter(mGridAdapter);
-//                Constants.position = -1;
-//            }*/
-//        }
-//    }
 
     private class GridViewOnKeyListener implements View.OnKeyListener{
 
@@ -320,48 +275,31 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP ){
                     if (currentSelectPosition >= 0 && currentSelectPosition <= 3){
                         Constants.debug(".........");
-                        gridview.setFocusable(false);
+                        mGridAdapter.setSelection(-1);
+                        mGridAdapter.notifyDataSetChanged();
                         mMainTopMarketRlRoot.setFocusable(true);
                     }
-                }
-                if (keyCode == KeyEvent.KEYCODE_ENTER){
-                    Constants.debug("position : " + currentSelectPosition);
-                    Intent intent = new Intent(MainActivity.this, InfoActivity.class);
-                    intent.putExtra("position", currentSelectPosition);
-                    startActivity(intent);
                 }
             }
             return false;
         }
     }
 
-    /**
-     * this method 
-     */
-    private void loadSharedPreferences(final String key, final String value){
-        Constants.debug("loadSharedPreferences()");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences share = getSharedPreferences(WALLPAPERSETTING, MODE);
-                String name = share.getString(key, "default");
-                Constants.debug(key + " : " + name);
-                if (!name.equals(value)){
-                    mHandler.sendEmptyMessageDelayed(FIRSTSELECTGRIDVIEW, 300);
-                    saveSharedPreferences(key, value);
-                    Constants.position = -2;
-                }
-            }
-        }).start();
-    }
+    private class GridViewOnItemSelectedListener implements AdapterView.OnItemSelectedListener{
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            Constants.debug("onItemSelected position : " + position);
+            Constants.position = position;
+            currentSelectPosition = position;
+            mGridAdapter.setSelection(position);
 
-    private void saveSharedPreferences(String key, String value){
-        Constants.debug("saveSharedPreferences()");
-        SharedPreferences share = getSharedPreferences(WALLPAPERSETTING, MODE);
-        SharedPreferences.Editor editor = share.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
+        }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            Constants.debug("onNothingSelected");
+            mGridAdapter.setSelection(-1);
+        }
+    }
 
 }

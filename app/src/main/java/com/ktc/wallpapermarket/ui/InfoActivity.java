@@ -23,6 +23,7 @@ import com.ktc.wallpapermarket.R;
 import com.ktc.wallpapermarket.utils.BitmapToDrawableUtils;
 import com.ktc.wallpapermarket.utils.Constants;
 import com.ktc.wallpapermarket.utils.ImageCheck;
+import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.ChangeWallpaperDialog;
 import com.ktc.wallpapermarket.view.SettingWallpaperDialog;
 
@@ -50,6 +51,8 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     private int currentPosition = -1;
     private File mFile = null;
     private String path = null;
+
+    private SettingPreference mPreference;
 
     private ImageCheck mCheck;
 
@@ -85,6 +88,9 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         Constants.debug("currentPosition : " + currentPosition);
 
         path = mFile.getPath();
+
+        mPreference = new SettingPreference(this);
+
         initView();
         initClick();
 
@@ -133,6 +139,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
             BitmapDrawable bitmapDrawable = new BitmapDrawable(path);
             Bitmap bitmap = bitmapDrawable.getBitmap();
             mManager.setBitmap(bitmap);
+            mPreference.saveSharedPreferences("settingPosition",Constants.position);
             settingHandler.sendEmptyMessage(LOAD_SUC_FIUNISH);
         }catch (Exception e){
             e.printStackTrace();

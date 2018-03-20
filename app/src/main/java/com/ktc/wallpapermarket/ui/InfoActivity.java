@@ -48,6 +48,9 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     private Button infoContentBtn;
     private TextView infoContentSizeTv;
 
+    //current Time
+    private TextView infoCurTimeTv;
+
     private int currentPosition = -1;
     private File mFile = null;
     private String path = null;
@@ -168,6 +171,10 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         infoContentIv = (ImageView) findViewById(R.id.info_content_iv);
         infoContentBtn = (Button) findViewById(R.id.info_content_btn);
         infoContentSizeTv = (TextView) findViewById(R.id.info_content_size_tv);
+
+        //curTime
+        infoCurTimeTv = (TextView) findViewById(R.id.info_curtime_tv);
+        infoCurTimeTv.setText(Constants.getCurTime());
     }
 
     private void initClick(){

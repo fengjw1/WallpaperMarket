@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -185,6 +184,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         mMainArrowDownRlRoot = (RelativeLayout) findViewById(R.id.root_main_arrow_down_rl);
         mMainArrowDownIvRoot = (ImageView) findViewById(R.id.root_main_arrow_down_iv);
 
+        //curTime
+        mMainBottomTimeTvRoot.setText(Constants.getCurTime());
     }
 
     @Override
@@ -192,6 +193,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         switch (v.getId()) {
             case R.id.root_main_top_home_rl:
                 // TODO 18/03/13
+                finish();
                 break;
             case R.id.root_main_top_market_rl:
                 // TODO 18/03/13

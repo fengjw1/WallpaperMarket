@@ -3,10 +3,13 @@ package com.ktc.wallpapermarket.utils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.format.Formatter;
+import android.text.format.Time;
 import android.util.Log;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -36,6 +39,14 @@ public class Constants {
         return Formatter.formatFileSize(context, Long.valueOf(tmpSize));
     }
 
+
+    public static String getCurTime(){
+        Calendar calendar = Calendar.getInstance();
+        Time curTime = new Time();
+        curTime.setToNow();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm EEEE, MMM" + ". " + "d");
+        return format.format(calendar.getTime());
+    }
 
 
 

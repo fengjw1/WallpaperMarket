@@ -48,9 +48,9 @@ public class GridAdapter extends BaseAdapter {
     private List<File> mList;
     private LruCache<String, Drawable> mCache;
 
-    private ImageView img;
-    private TextView title;
-    private ImageView checkIv;
+//    private ImageView img;
+//    private TextView title;
+//    private ImageView checkIv;
 
     private int selectItem = -1;
 
@@ -102,22 +102,23 @@ public class GridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Constants.debug("GridAdapter getView() position : " + position);
-//        ViewHolder holder = null;
-//        if (convertView == null){
-//            holder = new ViewHolder();
-//            convertView = mInflater.inflate(R.layout.gridview_item, null);
-//            holder.img = (ImageView) convertView.findViewById(R.id.img);
-//            holder.title = (TextView) convertView.findViewById(R.id.title);
-//            holder.checkIv = (ImageView) convertView.findViewById(R.id.check_iv);
-//            convertView.setTag(holder);
-//        }else {
-//            holder = (ViewHolder) convertView.getTag();
-//        }
+        ViewHolder holder = null;
+        View view = null;
+        if (view == null){
+            holder = new ViewHolder();
+            view = mInflater.inflate(R.layout.gridview_item, null);
+            holder.img = (ImageView) view.findViewById(R.id.img);
+            holder.title = (TextView) view.findViewById(R.id.title);
+            holder.checkIv = (ImageView) view.findViewById(R.id.check_iv);
+            view.setTag(holder);
+        }else {
+            holder = (ViewHolder) view.getTag();
+        }
 
-        View view = mInflater.inflate(R.layout.gridview_item, null);
-        img = (ImageView) view.findViewById(R.id.img);
-        title = (TextView) view.findViewById(R.id.title);
-        checkIv = (ImageView) view.findViewById(R.id.check_iv);
+//        View view = mInflater.inflate(R.layout.gridview_item, null);
+//        img = (ImageView) view.findViewById(R.id.img);
+//        title = (TextView) view.findViewById(R.id.title);
+//        checkIv = (ImageView) view.findViewById(R.id.check_iv);
 
         if (((MyGridView)parent).isOnMeasure){
             return view;
@@ -125,26 +126,26 @@ public class GridAdapter extends BaseAdapter {
         String url = mList.get(position).getPath();
         Drawable tempDrawable = hasDrawableInCache(url);
         if (tempDrawable != null){
-            img.setImageDrawable(tempDrawable);
+            holder.img.setImageDrawable(tempDrawable);
         }else {
             try {
-                AsyncLoadImageTask task = new AsyncLoadImageTask(img);
+                AsyncLoadImageTask task = new AsyncLoadImageTask(holder.img);
                 task.execute(position);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        title.setText(mList.get(position).getName());
+        holder.title.setText(mList.get(position).getName());
 
-        int settingPosition = mPreference.loadSharedPreferences("settingPosition", -1);
+        int settingPosition = mPreference.loadSharedPreferences("settingPosition", -2);
         Constants.debug("settingPosition : " + settingPosition);
         if (settingPosition == position){
             Constants.debug("VISIBLE");
-            checkIv.setVisibility(View.VISIBLE);
+            holder.checkIv.setVisibility(View.VISIBLE);
         }
         if (selectItem == settingPosition){
             Constants.debug("selectItem == position");
-            checkIv.setImageResource(R.drawable.check_icon_highlight);
+            holder.checkIv.setImageResource(R.drawable.check_icon_highlight);
         }
         if (selectItem == position){
             getScaleAnimator(view, mScalable, position);

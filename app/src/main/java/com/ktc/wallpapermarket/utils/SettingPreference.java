@@ -10,7 +10,8 @@ import android.content.SharedPreferences;
 public class SettingPreference {
 
     public static final String WALLPAPERSETTING = "wallpaper_setting";
-    public static int MODE = Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE;
+    public static int MODE = Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE
+            + Context.MODE_MULTI_PROCESS;
 
     private Context mContext;
 
@@ -18,26 +19,16 @@ public class SettingPreference {
         mContext = context;
     }
 
-    public void loadSharedPreferences(final String key, final String value){
-        Constants.debug("loadSharedPreferences()");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences share = mContext.getSharedPreferences(WALLPAPERSETTING, MODE);
-                String name = share.getString(key, "default");
-                Constants.debug(key + " : " + name);
-                if (!name.equals(value)){
-                    saveSharedPreferences(key, value);
-                }
-            }
-        }).start();
+    public String loadSharedPreferences(String key, String value){
+        SharedPreferences share = mContext.getSharedPreferences(WALLPAPERSETTING, MODE);
+        String tmp = share.getString(key, "default");
+        return tmp;
     }
 
     public int loadSharedPreferences(String key, int value){
         SharedPreferences share = mContext.getSharedPreferences(WALLPAPERSETTING, MODE);
-        int position = share.getInt(key, -1);
-        Constants.debug("key position : " + position);
-        return position;
+        int tmp = share.getInt(key, -2);
+        return tmp;
     }
 
     public void saveSharedPreferences(String key, int value){

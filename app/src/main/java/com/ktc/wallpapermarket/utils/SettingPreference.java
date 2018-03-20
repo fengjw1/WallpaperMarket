@@ -36,7 +36,7 @@ public class SettingPreference {
         Constants.debug("key : " + key + " value : " + value );
         SharedPreferences share = mContext.getSharedPreferences(WALLPAPERSETTING, MODE);
         SharedPreferences.Editor editor = share.edit();
-        editor.putInt(key, value);
+        editor.clear().putInt(key, value);
         editor.commit();
     }
 

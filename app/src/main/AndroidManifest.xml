@@ -4,6 +4,12 @@
           package="com.ktc.wallpapermarket">
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-sdk
+        android:maxSdkVersion="15"
+        android:minSdkVersion="15"
+        android:targetSdkVersion="15" />
 
     <application
         android:allowBackup="true"

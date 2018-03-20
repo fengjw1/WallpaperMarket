@@ -13,4 +13,6 @@
     <string name="wallpaper_info_size">wallpaper size ：</string>
     <string name="dialog_content_start">You are want to change the wallpaper for the</string>
     <string name="dialog_content_end">？</string>
+    <string name="user_define_str">user define wallpaper</string>
+    <string name="toast_str">Custom wallpaper cannot view the details page</string>
 </resources>

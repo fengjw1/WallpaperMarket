@@ -1,6 +1,7 @@
 package com.ktc.wallpapermarket.adapter;
 
 import android.animation.Animator;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -55,6 +56,7 @@ public class GridAdapter extends BaseAdapter {
     private int selectItem = -1;
 
     private SettingPreference mPreference;
+    private int settingPosition;
 
     private GridView gridview;
 
@@ -77,6 +79,8 @@ public class GridAdapter extends BaseAdapter {
         };
 
         mPreference = new SettingPreference(mContext);
+        settingPosition = mPreference.loadSharedPreferences("settingPosition", -2);
+        Constants.debug("settingPosition : " + settingPosition);
 
     }
 
@@ -84,6 +88,8 @@ public class GridAdapter extends BaseAdapter {
     public int getCount() {
         if (mList == null){
             return 0;
+        }else if (settingPosition == -1){
+            return mList.size() + 1;
         }else {
             return mList.size();
         }
@@ -91,12 +97,20 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        if (settingPosition == -1){
+            return mList.get(position + 1);
+        }else {
+            return mList.get(position);
+        }
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        if (settingPosition == -1){
+            return position + 1;
+        }else {
+            return position;
+        }
     }
 
     @Override
@@ -123,22 +137,54 @@ public class GridAdapter extends BaseAdapter {
         if (((MyGridView)parent).isOnMeasure){
             return view;
         }
-        String url = mList.get(position).getPath();
-        Drawable tempDrawable = hasDrawableInCache(url);
-        if (tempDrawable != null){
-            holder.img.setImageDrawable(tempDrawable);
-        }else {
-            try {
-                AsyncLoadImageTask task = new AsyncLoadImageTask(holder.img);
-                task.execute(position);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        holder.title.setText(mList.get(position).getName());
 
-        int settingPosition = mPreference.loadSharedPreferences("settingPosition", -2);
-        Constants.debug("settingPosition : " + settingPosition);
+
+
+
+        if (settingPosition == -1) {
+            Constants.debug("-1-1--1-1-1--1-1-1-");
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
+            Drawable drawable = wallpaperManager.getDrawable();
+
+            if (position == 0) {
+                holder.img.setImageDrawable(drawable);
+                holder.title.setText(R.string.user_define_str);
+                holder.checkIv.setVisibility(View.VISIBLE);
+            } else {
+                String url = mList.get(position - 1).getPath();
+                Drawable tempDrawable = hasDrawableInCache(url);
+                if (tempDrawable != null) {
+                    holder.img.setImageDrawable(tempDrawable);
+                } else {
+                    try {
+                        AsyncLoadImageTask task = new AsyncLoadImageTask(holder.img);
+                        task.execute(position -1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                holder.title.setText(mList.get(position-1).getName());
+            }
+        }else {
+            String url = mList.get(position).getPath();
+            Drawable tempDrawable = hasDrawableInCache(url);
+            if (tempDrawable != null){
+                holder.img.setImageDrawable(tempDrawable);
+            }else {
+                try {
+                    AsyncLoadImageTask task = new AsyncLoadImageTask(holder.img);
+                    task.execute(position);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            holder.title.setText(mList.get(position).getName());
+        }
+
+
+
+
+
         if (settingPosition == position){
             Constants.debug("VISIBLE");
             holder.checkIv.setVisibility(View.VISIBLE);

@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ktc.wallpapermarket.adapter.GridAdapter;
 import com.ktc.wallpapermarket.ui.InfoActivity;
@@ -52,6 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private int currentSelectPosition = -1;
 
     private SettingPreference mSettingPreference;
+    private int settingPosition;
 
     private List<File> mList = new ArrayList<>();
 
@@ -152,6 +155,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }).start();
 
         mSettingPreference = new SettingPreference(this);
+        settingPosition = mSettingPreference.loadSharedPreferences("settingPosition", -2);
 
     }
 
@@ -274,9 +278,21 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Constants.debug("onItemClick() position : " + position);
-            Intent intent = new Intent(MainActivity.this, InfoActivity.class);
-            intent.putExtra("position", position);
-            startActivity(intent);
+            if (settingPosition == -1){
+                if (position == 0){
+                    Toast.makeText(MainActivity.this, R.string.toast_str, Toast.LENGTH_SHORT)
+                            .show();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                    intent.putExtra("position", position - 1);
+                    startActivity(intent);
+                }
+            }else {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+
         }
     }
 

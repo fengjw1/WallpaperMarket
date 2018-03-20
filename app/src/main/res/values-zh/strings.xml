@@ -16,4 +16,32 @@
     <string name="dialog_content_end">吗？</string>
     <string name="user_define_str">自定义壁纸</string>
     <string name="toast_str">自定义壁纸无法查看详情页</string>
+
+    <!--network status dialog -->
+    <string name="status_info_title">网络设置信息</string>
+    <string name="status_info_type">网络类型:</string>
+    <string name="status_info_ip">IP地址 :</string>
+    <string name="status_info_devicename">设备名称:</string>
+    <string name="status_info_modle">网络模式:</string>
+    <string name="status_info_name">网络:</string>
+    <string name="status_info_subnet">网络掩码:</string>
+    <string name="status_info_state">状态:</string>
+    <string name="status_info_gateway">网关:</string>
+    <string name="status_info_speed">速度:</string>
+    <string name="status_info_dns1">DNS1:</string>
+    <string name="status_info_quality">信号质量：</string>
+    <string name="status_info_dns2">DNS2:</string>
+    <string name="status_info_security">加密类型:</string>
+    <string name="status_info_ethmac">以太网MAC地址 :</string>
+    <string name="status_info_wifimac">无线MAC地址:</string>
+    <string name="network_connect">网络连接</string>
+    <string name="ethernet">有线网络</string>
+    <string name="wireless">无线网络</string>
+    <string name="net_close">关闭</string>
+    <string name="none">NA</string>
+    <string name="eth_model_dhcp">DHCP</string>
+    <string name="eth_model_static">静态 IP</string>
+    <string name="secure_wep">WEP</string>
+    <string name="secure_wpa">WPA/WPA2 PSK</string>
+
 </resources>

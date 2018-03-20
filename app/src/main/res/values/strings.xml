@@ -15,4 +15,36 @@
     <string name="dialog_content_end">？</string>
     <string name="user_define_str">user define wallpaper</string>
     <string name="toast_str">Custom wallpaper cannot view the details page</string>
+
+    <!--network status dialog -->
+    <string name="status_info_title">Network Settings Information</string>
+    <string name="status_info_type">Network Type:</string>
+    <string name="status_info_ip">IP Address:</string>
+    <string name="status_info_devicename">Device Name:</string>
+    <string name="status_info_modle">Network mode:</string>
+    <string name="status_info_name">Network:</string>
+    <string name="status_info_subnet">Netmask:</string>
+    <string name="status_info_state">Status:</string>
+    <string name="status_info_gateway">Gateway:</string>
+    <string name="status_info_speed">Speed:</string>
+    <string name="status_info_dns1">DNS1:</string>
+    <string name="status_info_quality">Signal quality：</string>
+    <string name="status_info_dns2">DNS2:</string>
+    <string name="status_info_security">Encrypt type:</string>
+    <string name="status_info_ethmac">Ethernet Mac Address:</string>
+    <string name="status_info_wifimac">Wireless MAC Address:</string>
+
+    <string name="network_connect">Network Connection</string>
+    <string name="ethernet">Wired Network</string>
+    <string name="wireless">Wireless Network</string>
+    <string name="net_close">Off</string>
+    <string name="connected">Connected</string>
+    <string name="connect_no">Not connected</string>
+    <string name="none">NA</string>
+    <string name="eth_model_dhcp">DHCP</string>
+    <string name="eth_model_static">Static IP</string>
+    <string name="secure_wep">WEP</string>
+    <string name="secure_wpa">WPA/WPA2 PSK</string>
+
+
 </resources>

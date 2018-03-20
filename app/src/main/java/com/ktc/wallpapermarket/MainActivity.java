@@ -1,6 +1,7 @@
 package com.ktc.wallpapermarket;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.MyGridView;
 
 import java.io.File;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private RelativeLayout mMainArrowDownRlRoot;
     private ImageView mMainArrowUpIvRoot;
     private ImageView mMainArrowDownIvRoot;
+
+    //wifi
+    private Fragment wifiFg;
 
     private GridAdapter mGridAdapter;
     private MyGridView gridview;
@@ -187,6 +192,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         //curTime
         mMainBottomTimeTvRoot.setText(Constants.getCurTime());
+
+        //wifi
+        wifiFg = getFragmentManager().findFragmentById(R.id.root_main_top_wifi_fg);
     }
 
     @Override
@@ -239,10 +247,23 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_LEFT){
                     mMainTopHomeRlRoot.setFocusable(true);
                     mMainTopMarketRlRoot.setFocusable(false);
+                    gridview.setFocusable(false);
+                    wifiFg.getView().setFocusable(false);
                 }
+                //wifi
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_RIGHT){
+                    mMainTopHomeRlRoot.setFocusable(false);
+                    mMainTopMarketRlRoot.setFocusable(false);
+                    gridview.setFocusable(false);
+                    wifiFg.getView().setFocusable(true);
+                }
+                //gridview
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(false);
+                    wifiFg.getView().setFocusable(false);
+                    gridview.setFocusable(true);
+                    gridview.requestFocus();
                     Constants.position = 0;
                     currentSelectPosition = 0;
                     mGridAdapter.setSelection(0);
@@ -252,12 +273,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 break;
             case R.id.root_main_top_home_rl:
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_RIGHT){
+                    wifiFg.getView().setFocusable(false);
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(true);
+                    gridview.setFocusable(false);
                 }
+
+                //gridview
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     mMainTopHomeRlRoot.setFocusable(false);
                     mMainTopMarketRlRoot.setFocusable(false);
+                    gridview.setFocusable(true);
+                    gridview.requestFocus();
                     Constants.position = 0;
                     currentSelectPosition = 0;
                     mGridAdapter.setSelection(0);
@@ -269,6 +296,36 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 break;
         }
         return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Constants.debug("onKeyDown");
+        View rootview = this.getWindow().getDecorView();
+        int focusId = rootview.findFocus().getId();
+        Constants.debug("focusId : " + focusId);
+        if (focusId == R.id.root_main_top_wifi_fg){
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT){
+                wifiFg.getView().setFocusable(false);
+                mMainTopHomeRlRoot.setFocusable(false);
+                mMainTopMarketRlRoot.setFocusable(true);
+                gridview.setFocusable(false);
+            }
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+                wifiFg.getView().setFocusable(false);
+                mMainTopHomeRlRoot.setFocusable(false);
+                mMainTopMarketRlRoot.setFocusable(false);
+                wifiFg.getView().setFocusable(false);
+                gridview.setFocusable(true);
+                gridview.requestFocus();
+                Constants.position = 0;
+                currentSelectPosition = 0;
+                mGridAdapter.setSelection(0);
+                mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
+                mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private class GridViewOnItemClickListener implements AdapterView.OnItemClickListener{
@@ -302,10 +359,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP ){
                     if (currentSelectPosition >= 0 && currentSelectPosition <= 0){
                         Constants.debug(".........");
-                        Constants.position = -1;
-                        currentSelectPosition = -1;
-                        mGridAdapter.setSelection(-1);
+                        Constants.position = -2;
+                        currentSelectPosition = -2;
+                        mGridAdapter.setSelection(-2);
                         mMainTopMarketRlRoot.setFocusable(true);
+                        mMainTopHomeRlRoot.setFocusable(false);
                         mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
                         mMainArrowDownRlRoot.setVisibility(View.INVISIBLE);
                     }else if (currentSelectPosition > 11){

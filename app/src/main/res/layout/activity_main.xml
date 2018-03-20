@@ -67,6 +67,18 @@
                 android:textSize="25sp"
                 android:textColor="#fff"/>
         </RelativeLayout>
+
+            <fragment
+                android:id="@+id/root_main_top_wifi_fg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="20dp"
+                android:name="com.ktc.wallpapermarket.ui.NetIconFragment"
+                />
+
+
     </RelativeLayout>
 
 

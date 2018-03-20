@@ -138,9 +138,7 @@ public class GridAdapter extends BaseAdapter {
             return view;
         }
 
-
-
-
+        //user define code construction
         if (settingPosition == -1) {
             Constants.debug("-1-1--1-1-1--1-1-1-");
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
@@ -165,7 +163,14 @@ public class GridAdapter extends BaseAdapter {
                 }
                 holder.title.setText(mList.get(position-1).getName());
             }
-        }else {
+
+            if (selectItem == 0){
+                holder.checkIv.setImageResource(R.drawable.check_icon_highlight);
+            }
+
+        }
+        //not user define wallpaper code construction
+        else {
             String url = mList.get(position).getPath();
             Drawable tempDrawable = hasDrawableInCache(url);
             if (tempDrawable != null){
@@ -180,9 +185,6 @@ public class GridAdapter extends BaseAdapter {
             }
             holder.title.setText(mList.get(position).getName());
         }
-
-
-
 
 
         if (settingPosition == position){
@@ -206,11 +208,6 @@ public class GridAdapter extends BaseAdapter {
         selectItem = position;
         Constants.debug("selectItem : " + selectItem);
         super.notifyDataSetChanged();
-    }
-
-    public void update(){
-
-        notifyDataSetChanged();
     }
 
     /**

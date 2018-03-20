@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -85,6 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         initGridView();
         initClick();
         //new Thread(mRunnable).start();
+        mMainTopMarketRlRoot.setFocusable(true);
     }
 
     private Runnable mRunnable = new Runnable() {
@@ -109,9 +109,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         gridview.setOnKeyListener(new GridViewOnKeyListener());
         gridview.setOnItemClickListener(new GridViewOnItemClickListener());
         gridview.setOnItemSelectedListener(new GridViewOnItemSelectedListener());
-        gridview.requestFocus();
-        gridview.setFocusable(true);
-        gridview.setSelection(0);
     }
 
     @Override

@@ -10,12 +10,15 @@
     <string name="setting_loading_tv">The wallpaper is being applied</string>
     <string name="setting_loading_succeed">set Wallpaper succeed</string>
     <string name="setting_loading_failed">set Wallpaper failed</string>
-    <string name="wallpaper_info_size">wallpaper size ：</string>
+    <string name="wallpaper_info_size">Wallpaper size ：</string>
     <string name="dialog_content_start">You are want to change the wallpaper for the</string>
     <string name="dialog_content_end">？</string>
     <string name="user_define_str">user define wallpaper</string>
     <string name="toast_str">Custom wallpaper cannot view the details page</string>
     <string name="info_storage_percent"> % usable space</string>
+    <string name="info_designer">Designer:</string>
+    <string name="info_style">Style:</string>
+    <string name="info_description">Description</string>
 
     <!--network status dialog -->
     <string name="status_info_title">Network Settings Information</string>
@@ -47,5 +50,75 @@
     <string name="secure_wep">WEP</string>
     <string name="secure_wpa">WPA/WPA2 PSK</string>
 
+    <!--info content item-->
+    <!--1-->
+    <string name="info_wallpaper_0">Aurora</string>
+    <string name="info_style_0">Landscape </string>
+    <string name="info_designer_0">Jamie Teresuk</string>
+    <string name="info_description_0">Aurora whispers quietly at the high-latitude sky, telling her homesickness which you could never catch it.</string>
+    <!--2-->
+    <string name="info_wallpaper_1">Autumn </string>
+    <string name="info_style_1">Season</string>
+    <string name="info_designer_1">Jamie Teresuk</string>
+    <string name="info_description_1">"Leaves are turning yellow and red just before the coming winter. The falling leaves celebrate the joyfulness of seasonal alteration. "</string>
+    <!--3-->
+    <string name="info_wallpaper_2">"Deepblue "</string>
+    <string name="info_style_2">"Landscape "</string>
+    <string name="info_designer_2">Jamie Teresuk</string>
+    <string name="info_description_2">In the deep deep sea, there\'re treasures out there waiting to be found.</string>
+    <!--4-->
+    <string name="info_wallpaper_3">Galaxy</string>
+    <string name="info_style_3">Explorer</string>
+    <string name="info_designer_3">Jamie Teresuk</string>
+    <string name="info_description_3">Behind the mysterious mask, between the daylight and darkness, the words still can not express what the world looks like.</string>
+    <!--5-->
+    <string name="info_wallpaper_4">Men So Re</string>
+    <string name="info_style_4">Explorer</string>
+    <string name="info_designer_4">Ryan Hu</string>
+    <string name="info_description_4">Cool sea breeze, azure sea water, and the song sang loudly by the local folks is the way Okinawa island welcomes tourists.</string>
+    <!--6-->
+    <string name="info_wallpaper_5">Ocean</string>
+    <string name="info_style_5">Landscape</string>
+    <string name="info_designer_5">Jamie Teresuk</string>
+    <string name="info_description_5">How long since last time you\'ve been to the seaside to see the pure blue and breath the salty air.</string>
+    <!--7-->
+    <string name="info_wallpaper_6">Lantern</string>
+    <string name="info_style_6">Explorer</string>
+    <string name="info_designer_6">Hedy Chen</string>
+    <string name="info_description_6">Put on a mask, forget who you are. Just move your body to the rhythm of beats.</string>
 
+    <string name="info_wallpaper_7">Sierra</string>
+    <string name="info_style_7">Explorer</string>
+    <string name="info_designer_7">Jamie Teresuk</string>
+    <string name="info_description_7">When standing on the summit of the mountain, the world becomes small and faint. You can only find the familiar figure from the dim outline.</string>
+
+    <string name="info_wallpaper_8">Snorkel</string>
+    <string name="info_style_8">Explorer</string>
+    <string name="info_designer_8">Jamie Teresuk</string>
+    <string name="info_description_8">Birds flying in the sky and fishes swimming in the water could only glimpse at each other\'s world at where the two worlds intersect.</string>
+
+    <string name="info_wallpaper_9">City</string>
+    <string name="info_style_9">Explorer</string>
+    <string name="info_designer_9">Hedy Chen</string>
+    <string name="info_description_9">Every city has her own story. However, in the Internet world  people ignore their visual sense to see the ups and downs of a city which we try to express via this wallpaper.</string>
+
+    <string name="info_wallpaper_10">Sunset</string>
+    <string name="info_style_10">"Landscape "</string>
+    <string name="info_designer_10">Jamie Teresuk</string>
+    <string name="info_description_10">The reflection of the sunset fading in the lake calms down the tense mind and becomes peaceful. When the sunset fades out entirely, the world waits for another day coming in the quiet darkness.</string>
+
+    <string name="info_wallpaper_11">Sunset 2</string>
+    <string name="info_style_11">"Landscape "</string>
+    <string name="info_designer_11">Hedy Chen</string>
+    <string name="info_description_11">Immerse yourself into the golden sunset upon the lake and see the boat swung by the gentle breeze. Just let the sunlight sprinkles on your face and you\'ll find the peace.</string>
+
+    <string name="info_wallpaper_12">Tropical Fruit</string>
+    <string name="info_style_12">Season</string>
+    <string name="info_designer_12">Ryan Hu</string>
+    <string name="info_description_12">Nothing can express the strong passion of the south land in early summer but tropical fruit.</string>
+
+    <string name="info_wallpaper_13">"Venice Festival "</string>
+    <string name="info_style_13">Season</string>
+    <string name="info_designer_13">Jamie Teresuk</string>
+    <string name="info_description_13">Put on a mask, forget who you are. Just move your body to the rhythm of beats.</string>
 </resources>

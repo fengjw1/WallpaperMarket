@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 case FIRSTSELECTGRIDVIEW:
                     Constants.debug("FIRSTSELECTGRIDVIEW");
                     mGridAdapter.notifyDataSetChanged();
-                    gridview.setSelection(0);
+                    mGridAdapter.setSelection(0);
                     break;
                 default:
                     break;
@@ -118,6 +118,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     protected void onResume() {
         super.onResume();
         Constants.debug("onResume");
+
     }
 
     @Override
@@ -131,13 +132,17 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         super.onRestart();
         Constants.debug("onRestart()");
         settingPosition = mSettingPreference.loadSharedPreferences("settingPosition", -2);
-        gridview.setSelection(Constants.position);
+        currentSelectPosition = Constants.position;
+        mGridAdapter.setSelection(Constants.position);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Constants.debug("onDestroy()");
+        Constants.position = -2;
+        currentSelectPosition = -2;
+        mGridAdapter.setSelection(-2);
     }
 
     private void init() {
@@ -262,9 +267,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     wifiFg.getView().setFocusable(false);
                     gridview.setFocusable(true);
                     gridview.requestFocus();
-                    Constants.position = 0;
-                    currentSelectPosition = 0;
-                    mGridAdapter.setSelection(0);
+                    currentSelectPosition = Constants.position;
+                    mGridAdapter.setSelection(Constants.position);
                     mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
                     mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
                 }
@@ -283,9 +287,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     mMainTopMarketRlRoot.setFocusable(false);
                     gridview.setFocusable(true);
                     gridview.requestFocus();
-                    Constants.position = 0;
-                    currentSelectPosition = 0;
-                    mGridAdapter.setSelection(0);
+                    currentSelectPosition = Constants.position;
+                    mGridAdapter.setSelection(Constants.position);
                     mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
                     mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
                 }
@@ -313,12 +316,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 wifiFg.getView().setFocusable(false);
                 mMainTopHomeRlRoot.setFocusable(false);
                 mMainTopMarketRlRoot.setFocusable(false);
-                wifiFg.getView().setFocusable(false);
                 gridview.setFocusable(true);
                 gridview.requestFocus();
-                Constants.position = 0;
-                currentSelectPosition = 0;
-                mGridAdapter.setSelection(0);
+                currentSelectPosition = Constants.position;
+                mGridAdapter.setSelection(Constants.position);
                 mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
                 mMainArrowDownRlRoot.setVisibility(View.VISIBLE);
             }
@@ -355,10 +356,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             Constants.debug("GridViewOnKeyListener onKey()");
             if (event.getAction() == KeyEvent.ACTION_DOWN){
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP ){
-                    if (currentSelectPosition >= 0 && currentSelectPosition <= 0){
+                    if (currentSelectPosition == 3){
+                        mGridAdapter.setSelection(-2);
+                        mMainTopMarketRlRoot.setFocusable(false);
+                        mMainTopHomeRlRoot.setFocusable(false);
+                        mMainArrowUpRlRoot.setVisibility(View.INVISIBLE);
+                        mMainArrowDownRlRoot.setVisibility(View.INVISIBLE);
+                        wifiFg.getView().setFocusable(true);
+                    }
+                    if (currentSelectPosition >= 0 && currentSelectPosition <= 2){
                         Constants.debug(".........");
-                        Constants.position = -2;
-                        currentSelectPosition = -2;
+//                        Constants.position = -2;
+//                        currentSelectPosition = -2;
                         mGridAdapter.setSelection(-2);
                         mMainTopMarketRlRoot.setFocusable(true);
                         mMainTopHomeRlRoot.setFocusable(false);
@@ -404,7 +413,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
             Constants.debug("onNothingSelected");
-            mGridAdapter.setSelection(-1);
+            mGridAdapter.setSelection(-2);
         }
     }
 

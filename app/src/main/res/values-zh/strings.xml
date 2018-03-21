@@ -17,6 +17,10 @@
     <string name="user_define_str">自定义壁纸</string>
     <string name="toast_str">自定义壁纸无法查看详情页</string>
     <string name="info_storage_percent"> % 可使用空间</string>
+    <string name="info_designer">设计师：</string>
+    <string name="info_style">设计风格：</string>
+    <string name="info_description">壁纸介绍：</string>
+
 
     <!--network status dialog -->
     <string name="status_info_title">网络设置信息</string>
@@ -44,5 +48,79 @@
     <string name="eth_model_static">静态 IP</string>
     <string name="secure_wep">WEP</string>
     <string name="secure_wpa">WPA/WPA2 PSK</string>
+
+
+
+
+    <string name="info_wallpaper_0">極光</string>
+    <string name="info_style_0">寰宇地景</string>
+    <string name="info_designer_0">Jamie Teresuk</string>
+    <string name="info_description_0">極光反覆 , 捉摸不定的擺盪著 , 高緯度天空的低語呢喃 , 輕輕的訴說著思鄉的情緒。</string>
+
+    <string name="info_wallpaper_1">秋天</string>
+    <string name="info_style_1">季節饗宴</string>
+    <string name="info_designer_1">Jamie Teresuk</string>
+    <string name="info_description_1">枯黃和翻紅的葉面交錯著 , 夾雜著冬天即將到來的消息 , 落英繽紛的場景 , 慶賀著季節交替的歡愉。</string>
+
+    <string name="info_wallpaper_2">深海</string>
+    <string name="info_style_2">寰宇地景</string>
+    <string name="info_designer_2">Jamie Teresuk</string>
+    <string name="info_description_2">深海中總藏著神秘 , 等待人們去深掘。</string>
+
+    <string name="info_wallpaper_3">銀河星系</string>
+    <string name="info_style_3">探險者</string>
+    <string name="info_designer_3">Jamie Teresuk</string>
+    <string name="info_description_3">在那神秘的面紗下, 光明與黑暗不時地喧嘩的交會著，言語也無法描繪宇宙的模樣。</string>
+
+    <string name="info_wallpaper_4">沖繩民謠</string>
+    <string name="info_style_4">探險者</string>
+    <string name="info_designer_4">Ryan Hu</string>
+    <string name="info_description_4">沁涼的海風 , 蔚藍透澈的海水 , 以及居民們高聲歡唱的島歌 , 是沖繩島嶼歡迎遊客的方式。</string>
+
+    <string name="info_wallpaper_5">海洋</string>
+    <string name="info_style_5">寰宇地景</string>
+    <string name="info_designer_5">Jamie Teresuk</string>
+    <string name="info_description_5">有多久沒有到海邊 , 看看那抹純粹的藍 , 呼吸那帶著鹹鹹海風的氣味。</string>
+
+    <string name="info_wallpaper_6">炫彩動感</string>
+    <string name="info_style_6">探險者</string>
+    <string name="info_designer_6">Hedy Chen</string>
+    <string name="info_description_6">用紙玩味生活 , 設計生活 , 創造生活 , 利用紙的變化造型創出不同風格的燈罩 , 結合各種變化 , 透過燈光投射出華麗炫彩動感 , 如夢如幻的發光忽明忽暗的炫彩燈光效果。</string>
+
+    <string name="info_wallpaper_7">山巒</string>
+    <string name="info_style_7">探險者</string>
+    <string name="info_designer_7">Jamie Teresuk</string>
+    <string name="info_description_7">立足於山巔之上 , 世界變的渺小而模糊 , 只能從朦朧的輪廓中尋找熟悉的身影</string>
+
+    <string name="info_wallpaper_8">潛水視界</string>
+    <string name="info_style_8">探險者</string>
+    <string name="info_designer_8">Jamie Teresuk</string>
+    <string name="info_description_8">天上飛的鳥兒 , 水中游的魚 , 交會在那海天交會的一線間 , 一窺彼此的世界。</string>
+
+    <string name="info_wallpaper_9">城市縮影</string>
+    <string name="info_style_9">探險者</string>
+    <string name="info_designer_9">Hedy Chen</string>
+    <string name="info_description_9">每個城市也都有屬於他特別的故事 , 然而在這個網路世界裡 , 人往往乎略了視覺的感受力 , 看不到這個城市的繁榮與落寞 , 因此這張桌布試圖呈現城市流逝的感受。</string>
+
+    <string name="info_wallpaper_10">黃昏餘暉</string>
+    <string name="info_style_10">寰宇地景</string>
+    <string name="info_designer_10">Jamie Teresuk</string>
+    <string name="info_description_10">座落於湖中的倒影隨著夕陽的餘暉 , 緩緩褪去顏色 , 高漲的情緒也隨著黑幕平靜下來 , 萬物又靜靜的期待著明天的到來 。</string>
+
+    <string name="info_wallpaper_11">黃昏餘暉 2</string>
+    <string name="info_style_11">寰宇地景</string>
+    <string name="info_designer_11">Hedy Chen</string>
+    <string name="info_description_11">沐浴在黃昏金燦燦的餘暉中 , 落日湖面上 , 微風餘映的船支 , 霞光也撒滿整個臉 , 讓人心情平靜安詳。</string>
+
+    <string name="info_wallpaper_12">熱帶水果</string>
+    <string name="info_style_12">季節饗宴</string>
+    <string name="info_designer_12">Ryan Hu</string>
+    <string name="info_description_12">沒有什麼比熱帶水果更能表達初夏南國的濃濃熱情。</string>
+
+    <string name="info_wallpaper_13">威尼斯嘉年華</string>
+    <string name="info_style_13">季節饗宴</string>
+    <string name="info_designer_13">Jamie Teresuk</string>
+    <string name="info_description_13">戴上面具 , 忘卻我們本來的樣子 , 就讓身體隨著節拍恣意搖擺吧。</string>
+
 
 </resources>

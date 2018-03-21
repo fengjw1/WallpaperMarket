@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.ktc.wallpapermarket.MainActivity;
 import com.ktc.wallpapermarket.R;
 import com.ktc.wallpapermarket.utils.Constants;
+import com.ktc.wallpapermarket.utils.ImageInfoBean;
+import com.ktc.wallpapermarket.utils.InfoContentUtils;
 import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.MyGridView;
 
@@ -60,10 +62,16 @@ public class GridAdapter extends BaseAdapter {
 
     private GridView gridview;
 
+    private InfoContentUtils mInfoContentUtils;
+    private List<ImageInfoBean> mInfoBeanList;
+
     public GridAdapter(Context context, List<File> files, GridView gridView){
         mContext = context;
         mList = files;
         this.mInflater = LayoutInflater.from(mContext);
+
+        mInfoContentUtils = new InfoContentUtils(mContext);
+        mInfoBeanList = mInfoContentUtils.getList();
 
         this.gridview = gridView;
 
@@ -161,7 +169,8 @@ public class GridAdapter extends BaseAdapter {
                         e.printStackTrace();
                     }
                 }
-                holder.title.setText(mList.get(position-1).getName());
+//                holder.title.setText(mList.get(position-1).getName());
+                holder.title.setText(mInfoBeanList.get(position - 1).getName());
             }
 
             if (selectItem == 0){
@@ -183,7 +192,8 @@ public class GridAdapter extends BaseAdapter {
                     e.printStackTrace();
                 }
             }
-            holder.title.setText(mList.get(position).getName());
+            //holder.title.setText(mList.get(position).getName());
+            holder.title.setText(mInfoBeanList.get(position).getName());
         }
 
 
@@ -207,6 +217,7 @@ public class GridAdapter extends BaseAdapter {
     public void setSelection(int position){
         selectItem = position;
         Constants.debug("selectItem : " + selectItem);
+        settingPosition = mPreference.loadSharedPreferences("settingPosition", -2);
         super.notifyDataSetChanged();
     }
 

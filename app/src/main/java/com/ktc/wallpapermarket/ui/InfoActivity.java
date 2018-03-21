@@ -25,12 +25,15 @@ import com.ktc.wallpapermarket.R;
 import com.ktc.wallpapermarket.utils.BitmapToDrawableUtils;
 import com.ktc.wallpapermarket.utils.Constants;
 import com.ktc.wallpapermarket.utils.ImageCheck;
+import com.ktc.wallpapermarket.utils.ImageInfoBean;
+import com.ktc.wallpapermarket.utils.InfoContentUtils;
 import com.ktc.wallpapermarket.utils.SDSizeUtils;
 import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.ChangeWallpaperDialog;
 import com.ktc.wallpapermarket.view.SettingWallpaperDialog;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by fengjw on 2018/3/16.
@@ -61,7 +64,14 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     private ProgressBar infoStoragePb;
     private TextView infoStorageTv;
 
-    private int currentPosition = -1;
+    //info content
+    private TextView infoContentDesignerTv;
+    private TextView infoContentStyleTv;
+    private TextView infoContentDescriptionTv;
+    private InfoContentUtils mInfoContentUtils;
+    private List<ImageInfoBean> mInfoBeanList;
+
+    private int currentPosition = -2;
     private File mFile = null;
     private String path = null;
 
@@ -96,13 +106,16 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         Intent intent = getIntent();
-        currentPosition = intent.getIntExtra("position", -1);
+        currentPosition = intent.getIntExtra("position", -2);
         mFile = Constants.sList.get(currentPosition);
         Constants.debug("currentPosition : " + currentPosition);
 
         path = mFile.getPath();
 
         mPreference = new SettingPreference(this);
+
+        mInfoContentUtils = new InfoContentUtils(this);
+        mInfoBeanList = mInfoContentUtils.getList();
 
         initView();
         initClick();
@@ -177,10 +190,11 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         infoTopMarketIv2 = (ImageView) findViewById(R.id.info_top_market_iv2);
         infoTopMarketTv = (TextView) findViewById(R.id.info_top_market_tv);
 
-        infoContentNameTv = (TextView) findViewById(R.id.info_content_name_tv);
         infoContentIv = (ImageView) findViewById(R.id.info_content_iv);
         infoContentBtn = (Button) findViewById(R.id.info_content_btn);
         infoContentSizeTv = (TextView) findViewById(R.id.info_content_size_tv);
+
+
 
         //curTime
         infoCurTimeTv = (TextView) findViewById(R.id.info_curtime_tv);
@@ -193,6 +207,26 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         infoStoragePb = (ProgressBar) findViewById(R.id.info_storage_pb);
         infoStorageTv = (TextView) findViewById(R.id.info_storage_tv);
 
+        //info content
+        infoContentNameTv = (TextView) findViewById(R.id.info_content_name_tv);
+        infoContentDesignerTv = (TextView) findViewById(R.id.info_content_designer_tv);
+        infoContentStyleTv = (TextView) findViewById(R.id.info_content_style_tv);
+        infoContentDescriptionTv = (TextView) findViewById(R.id.info_content_description_tv);
+        //set Text
+        infoContentNameTv.setText(mInfoBeanList.get(currentPosition).getName());
+
+        String designer = getResources().getString(R.string.info_designer)
+                + mInfoBeanList.get(currentPosition).getDesigner();
+        infoContentDesignerTv.setText(designer);
+
+        String style = getResources().getString(R.string.info_style)
+                + mInfoBeanList.get(currentPosition).getStyle();
+        infoContentStyleTv.setText(style);
+
+        String description = getResources().getString(R.string.info_description)
+                + mInfoBeanList.get(currentPosition).getDescription();
+        infoContentDescriptionTv.setText(description);
+        //
         SDSizeUtils sdSizeUtils = new SDSizeUtils(this);
         String percentSize = sdSizeUtils.getSizePercent() +
                 getResources().getString(R.string.info_storage_percent);
@@ -217,7 +251,6 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         BitmapToDrawableUtils drawableUtils = new BitmapToDrawableUtils(drawable, width, height);
         infoContentIv.setImageDrawable(drawableUtils.getInstance());
 
-        infoContentNameTv.setText(mFile.getName());
 
         String tmpSize = getResources().getString(R.string.wallpaper_info_size)
                 + Constants.formatSize(this, mFile.length());
@@ -248,7 +281,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
             case R.id.info_top_market_rl:
                 break;
             case R.id.info_content_btn:
-                String name = mFile.getName();
+                String name = mInfoBeanList.get(currentPosition).getName();
                 Constants.debug("path : " + name);
                 ChangeWallpaperDialog changeWallpaperDialog = new ChangeWallpaperDialog(this, name);
                 changeWallpaperDialog.show();
@@ -274,6 +307,10 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
                 infoContentBtn.setFocusable(true);
                 infoTopMarketRl.setFocusable(false);
             }
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            finish();
         }
 
         return super.onKeyDown(keyCode, event);

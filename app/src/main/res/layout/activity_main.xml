@@ -30,13 +30,6 @@
                 android:scaleType="fitXY"
                 android:layout_centerInParent="true"
                 android:background="@drawable/top2_circle_normal"/>
-            <ImageView
-                android:id="@+id/root_main_top_home_iv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_centerInParent="true"
-                android:background="@drawable/home_dashboard_d"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -49,18 +42,25 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/root_main_top_market_iv"
+                android:id="@+id/root_main_top_market_iv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="12dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/wallpaper_market_icon"/>
+                android:background="@drawable/top_circle_white"/>
+            <ImageView
+                android:id="@+id/root_main_top_market_iv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/theme_market_a"/>
             <TextView
                 android:id="@+id/root_main_top_market_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/root_main_top_market_iv"
+                android:layout_toRightOf="@+id/root_main_top_market_iv2"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dp"
                 android:text="@string/app_name"
@@ -70,11 +70,11 @@
 
             <fragment
                 android:id="@+id/root_main_top_wifi_fg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_alignBaseline="@+id/root_main_top_market_rl"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginRight="28dp"
                 android:name="com.ktc.wallpapermarket.ui.NetIconFragment"
                 />
 
@@ -103,7 +103,7 @@
             android:id="@+id/root_main_gv"
             android:layout_below="@+id/root_main_arrow_up_rl"
             android:layout_width="match_parent"
-            android:layout_height="550dp"
+            android:layout_height="568dp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"

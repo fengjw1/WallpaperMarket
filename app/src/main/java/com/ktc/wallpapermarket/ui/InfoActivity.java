@@ -328,7 +328,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
                     infoTopHomeIv1.setBackgroundResource(R.drawable.top_circle_highlighted);
                     infoTopHomeIv2.setBackgroundResource(R.drawable.theme_market_hl);
                 }else {
-                    infoTopHomeIv1.setBackgroundResource(R.drawable.top_circle_normal);
+                    infoTopHomeIv1.setBackgroundResource(R.drawable.top_circle_white);
                     infoTopHomeIv2.setBackgroundResource(R.drawable.theme_market_a);
                 }
                 break;
@@ -338,7 +338,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
                     infoTopMarketIv2.setBackgroundResource(R.drawable.mediacenter_hl);
                     infoTopMarketTv.setTextColor(getResources().getColor(R.color.blue));
                 }else {
-                    infoTopMarketIv1.setBackgroundResource(R.drawable.top_circle_normal);
+                    infoTopMarketIv1.setBackgroundResource(R.drawable.top_circle_white);
                     infoTopMarketIv2.setBackgroundResource(R.drawable.mediacenter_white);
                     infoTopMarketTv.setTextColor(getResources().getColor(R.color.white));
                 }

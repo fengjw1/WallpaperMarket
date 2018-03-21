@@ -23,7 +23,6 @@ import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.MyGridView;
 
 import java.io.File;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +33,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private static final boolean DEBUG = true;
 
     private ImageView mMainTopHomeIv1Root;
-    private ImageView mMainTopHomeIv2Root;
     private RelativeLayout mMainTopHomeRlRoot;
-    private ImageView mMainTopMarketIvRoot;
+    private ImageView mMainTopMarketIv1Root, mMainTopMarketIv2Root;
     private TextView mMainTopMarketTvRoot;
     private RelativeLayout mMainTopMarketRlRoot;
     private RelativeLayout mMainTopBarRlRoot;
@@ -174,9 +172,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private void initView() {
         Constants.debug("initView()");
         mMainTopHomeIv1Root = (ImageView) findViewById(R.id.root_main_top_home_iv1);
-        mMainTopHomeIv2Root = (ImageView) findViewById(R.id.root_main_top_home_iv2);
         mMainTopHomeRlRoot = (RelativeLayout) findViewById(R.id.root_main_top_home_rl);
-        mMainTopMarketIvRoot = (ImageView) findViewById(R.id.root_main_top_market_iv);
+        mMainTopMarketIv1Root = (ImageView) findViewById(R.id.root_main_top_market_iv1);
+        mMainTopMarketIv2Root = (ImageView) findViewById(R.id.root_main_top_market_iv2);
         mMainTopMarketTvRoot = (TextView) findViewById(R.id.root_main_top_market_tv);
         mMainTopMarketRlRoot = (RelativeLayout) findViewById(R.id.root_main_top_market_rl);
         mMainTopBarRlRoot = (RelativeLayout) findViewById(R.id.root_main_top_bar_rl);
@@ -219,19 +217,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         switch (v.getId()) {
             case R.id.root_main_top_home_rl:
                 if (hasFocus) {
-                    mMainTopHomeIv1Root.setBackgroundResource(R.drawable.top1_circle_highlighted_blue);
-                    mMainTopHomeIv2Root.setBackgroundResource(R.drawable.home_dashboard_hl);
+                    mMainTopHomeIv1Root.setBackgroundResource(R.drawable.top2_circle_highlighted_blue);
                 } else {
                     mMainTopHomeIv1Root.setBackgroundResource(R.drawable.top2_circle_normal);
-                    mMainTopHomeIv2Root.setBackgroundResource(R.drawable.home_dashboard_d);
                 }
                 break;
             case R.id.root_main_top_market_rl:
                 if (hasFocus) {
-                    mMainTopMarketIvRoot.setBackgroundResource(R.drawable.wallpaper_market_focus);
+                    mMainTopMarketIv1Root.setBackgroundResource(R.drawable.top_circle_highlighted);
+                    mMainTopMarketIv2Root.setBackgroundResource(R.drawable.theme_market_hl);
                     mMainTopMarketTvRoot.setTextColor(getResources().getColor(R.color.blue));
                 } else {
-                    mMainTopMarketIvRoot.setBackgroundResource(R.drawable.wallpaper_market_icon);
+                    mMainTopMarketIv1Root.setBackgroundResource(R.drawable.top_circle_white);
+                    mMainTopMarketIv2Root.setBackgroundResource(R.drawable.theme_market_a);
                     mMainTopMarketTvRoot.setTextColor(getResources().getColor(R.color.white));
                 }
                 break;

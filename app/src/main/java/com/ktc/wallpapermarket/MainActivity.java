@@ -88,6 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         initClick();
         //new Thread(mRunnable).start();
         mMainTopMarketRlRoot.setFocusable(true);
+        Constants.position = 0;
     }
 
     private Runnable mRunnable = new Runnable() {
@@ -140,9 +141,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     protected void onDestroy() {
         super.onDestroy();
         Constants.debug("onDestroy()");
-        Constants.position = -2;
-        currentSelectPosition = -2;
-        mGridAdapter.setSelection(-2);
+
     }
 
     private void init() {

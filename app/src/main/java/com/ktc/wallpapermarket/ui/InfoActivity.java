@@ -1,6 +1,7 @@
 package com.ktc.wallpapermarket.ui;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.ktc.wallpapermarket.R;
 import com.ktc.wallpapermarket.utils.BitmapToDrawableUtils;
 import com.ktc.wallpapermarket.utils.Constants;
 import com.ktc.wallpapermarket.utils.ImageCheck;
+import com.ktc.wallpapermarket.utils.SDSizeUtils;
 import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.ChangeWallpaperDialog;
 import com.ktc.wallpapermarket.view.SettingWallpaperDialog;
@@ -50,6 +53,13 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
 
     //current Time
     private TextView infoCurTimeTv;
+
+    //wifi
+    private Fragment wifiFg;
+
+    //progressBar
+    private ProgressBar infoStoragePb;
+    private TextView infoStorageTv;
 
     private int currentPosition = -1;
     private File mFile = null;
@@ -175,6 +185,21 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         //curTime
         infoCurTimeTv = (TextView) findViewById(R.id.info_curtime_tv);
         infoCurTimeTv.setText(Constants.getCurTime());
+
+        //wifi
+        wifiFg = getFragmentManager().findFragmentById(R.id.info_top_wifi_fg);
+
+        //ProgressBar
+        infoStoragePb = (ProgressBar) findViewById(R.id.info_storage_pb);
+        infoStorageTv = (TextView) findViewById(R.id.info_storage_tv);
+
+        SDSizeUtils sdSizeUtils = new SDSizeUtils(this);
+        String percentSize = sdSizeUtils.getSizePercent() +
+                getResources().getString(R.string.info_storage_percent);
+        float tmpSize = sdSizeUtils.getSizePercent(0);
+        Constants.debug("tmpSize : " + tmpSize);
+        infoStorageTv.setText(percentSize);
+        infoStoragePb.setProgress((int)tmpSize);
     }
 
     private void initClick(){
@@ -232,6 +257,29 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        View rootView = this.getWindow().getDecorView();
+        int focusId = rootView.findFocus().getId();
+        if (focusId == R.id.info_top_wifi_fg){
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT){
+                wifiFg.getView().setFocusable(false);
+                infoTopHomeRl.setFocusable(false);
+                infoContentBtn.setFocusable(false);
+                infoTopMarketRl.setFocusable(true);
+            }
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+                wifiFg.getView().setFocusable(false);
+                infoTopHomeRl.setFocusable(false);
+                infoContentBtn.setFocusable(true);
+                infoTopMarketRl.setFocusable(false);
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         Constants.debug("onKey()");
         if (event.getAction() == KeyEvent.ACTION_DOWN){
@@ -250,6 +298,12 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
                     }
                     if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT){
                         infoTopHomeRl.setFocusable(true);
+                    }
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT){
+                        wifiFg.getView().setFocusable(true);
+                        infoTopHomeRl.setFocusable(false);
+                        infoContentBtn.setFocusable(false);
+                        infoTopMarketRl.setFocusable(false);
                     }
                     break;
                 case R.id.info_content_btn:

@@ -16,7 +16,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/wallpaper_market_icon"
+        android:icon="@drawable/wallpaper_maket_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Black.NoTitleBar">

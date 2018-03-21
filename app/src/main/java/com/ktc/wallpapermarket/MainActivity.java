@@ -132,8 +132,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     protected void onRestart() {
         super.onRestart();
         Constants.debug("onRestart()");
-        mGridAdapter.notifyDataSetChanged();
-
+        settingPosition = mSettingPreference.loadSharedPreferences("settingPosition", -2);
+        gridview.setSelection(Constants.position);
     }
 
     @Override

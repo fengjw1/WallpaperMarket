@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:focusable="true"
             android:clickable="true"
             android:gravity="center">
@@ -78,11 +79,51 @@
                 android:textSize="25sp"
                 android:textColor="#fff"/>
         </RelativeLayout>
+
+        <fragment
+            android:id="@+id/info_top_wifi_fg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:layout_alignTop="@+id/info_top_home_rl"
+            android:name="com.ktc.wallpapermarket.ui.NetIconFragment"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/info_storage_rl"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/info_top_bar_rl">
+
+        <TextView
+            android:id="@+id/info_storage_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:textSize="22sp"
+            android:textColor="@color/white"/>
+        <ProgressBar
+            android:id="@+id/info_storage_pb"
+            android:layout_below="@+id/info_storage_tv"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_marginTop="10dp"
+            android:max="100"
+            android:progressDrawable="@drawable/info_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/info_content_rl"
-        android:layout_below="@+id/info_top_bar_rl"
+        android:layout_below="@+id/info_storage_rl"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

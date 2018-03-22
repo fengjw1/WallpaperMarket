@@ -218,6 +218,9 @@ public class GridAdapter extends BaseAdapter {
         selectItem = position;
         Constants.debug("selectItem : " + selectItem);
         settingPosition = mPreference.loadSharedPreferences("settingPosition", -2);
+        Constants.debug("----------------------");
+        Constants.debug("settingPosition : " + settingPosition);
+        Constants.debug("----------------------");
         super.notifyDataSetChanged();
     }
 

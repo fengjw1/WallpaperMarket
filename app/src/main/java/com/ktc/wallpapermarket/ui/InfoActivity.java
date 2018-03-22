@@ -164,7 +164,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
             BitmapDrawable bitmapDrawable = new BitmapDrawable(path);
             Bitmap bitmap = bitmapDrawable.getBitmap();
             mManager.setBitmap(bitmap);
-            mPreference.saveSharedPreferences("settingPosition",Constants.position);
+            mPreference.saveSharedPreferences("settingPosition",currentPosition);
             settingHandler.sendEmptyMessage(LOAD_SUC_FIUNISH);
         }catch (Exception e){
             e.printStackTrace();

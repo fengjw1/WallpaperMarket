@@ -19,6 +19,8 @@
     <string name="info_designer">Designer:</string>
     <string name="info_style">Style:</string>
     <string name="info_description">Description</string>
+    <string name="date_day"></string>
+    <string name="date_month">.&#160;</string>
 
     <!--network status dialog -->
     <string name="status_info_title">Network Settings Information</string>

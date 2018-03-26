@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.ktc.wallpapermarket.R;
 import com.ktc.wallpapermarket.utils.BitmapToDrawableUtils;
 import com.ktc.wallpapermarket.utils.Constants;
+import com.ktc.wallpapermarket.utils.CurrentTimeUtils;
 import com.ktc.wallpapermarket.utils.ImageCheck;
 import com.ktc.wallpapermarket.utils.ImageInfoBean;
 import com.ktc.wallpapermarket.utils.InfoContentUtils;
@@ -59,6 +60,9 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
 
     //wifi
     private Fragment wifiFg;
+
+    //current time
+    private CurrentTimeUtils mTime;
 
     //progressBar
     private ProgressBar infoStoragePb;
@@ -111,6 +115,9 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
         Constants.debug("currentPosition : " + currentPosition);
 
         path = mFile.getPath();
+
+        //current time
+        mTime = new CurrentTimeUtils(this);
 
         mPreference = new SettingPreference(this);
 
@@ -198,7 +205,7 @@ public class InfoActivity extends Activity implements View.OnKeyListener, View.O
 
         //curTime
         infoCurTimeTv = (TextView) findViewById(R.id.info_curtime_tv);
-        infoCurTimeTv.setText(Constants.getCurTime());
+        infoCurTimeTv.setText(mTime.getCurTime());
 
         //wifi
         wifiFg = getFragmentManager().findFragmentById(R.id.info_top_wifi_fg);

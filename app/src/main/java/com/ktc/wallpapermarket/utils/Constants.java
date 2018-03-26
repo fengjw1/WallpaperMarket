@@ -1,6 +1,7 @@
 package com.ktc.wallpapermarket.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.text.format.Formatter;
 import android.text.format.Time;
@@ -38,17 +39,4 @@ public class Constants {
         String tmpSize = String.valueOf(target_size);
         return Formatter.formatFileSize(context, Long.valueOf(tmpSize));
     }
-
-
-    public static String getCurTime(){
-        Calendar calendar = Calendar.getInstance();
-        Time curTime = new Time();
-        curTime.setToNow();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm EEEE, MMM" + ". " + "d");
-        return format.format(calendar.getTime());
-    }
-
-
-
-
 }

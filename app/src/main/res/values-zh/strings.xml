@@ -20,7 +20,8 @@
     <string name="info_designer">设计师：</string>
     <string name="info_style">设计风格：</string>
     <string name="info_description">壁纸介绍：</string>
-
+    <string name="date_day">日</string>
+    <string name="date_month"></string>
 
     <!--network status dialog -->
     <string name="status_info_title">网络设置信息</string>

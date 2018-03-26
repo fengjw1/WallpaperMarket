@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.ktc.wallpapermarket.adapter.GridAdapter;
 import com.ktc.wallpapermarket.ui.InfoActivity;
 import com.ktc.wallpapermarket.utils.Constants;
+import com.ktc.wallpapermarket.utils.CurrentTimeUtils;
 import com.ktc.wallpapermarket.utils.ReadPhotoTool;
 import com.ktc.wallpapermarket.utils.SettingPreference;
 import com.ktc.wallpapermarket.view.MyGridView;
@@ -49,6 +50,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     //wifi
     private Fragment wifiFg;
+
+    //current time
+    private CurrentTimeUtils mTime;
 
     private GridAdapter mGridAdapter;
     private MyGridView gridview;
@@ -82,6 +86,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         super.onCreate(savedInstanceState);
         Constants.debug("onCreate");
         setContentView(R.layout.activity_main);
+
+        mTime = new CurrentTimeUtils(this);
+
         init();
         initView();
         initGridView();
@@ -193,7 +200,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         mMainArrowDownIvRoot = (ImageView) findViewById(R.id.root_main_arrow_down_iv);
 
         //curTime
-        mMainBottomTimeTvRoot.setText(Constants.getCurTime());
+        mMainBottomTimeTvRoot.setText(mTime.getCurTime());
 
         //wifi
         wifiFg = getFragmentManager().findFragmentById(R.id.root_main_top_wifi_fg);
